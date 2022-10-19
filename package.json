@@ -1,0 +1,55 @@
+{
+  "name": "cesiumjs-webpack-example",
+  "version": "1.0.0",
+  "description": "The minimal recomended setup for an app using Cesium with Webpack.",
+  "homepage": "https://cesium.com/platform/cesiumjs/",
+  "license": "Apache-2.0",
+  "author": {
+    "name": "Cesium GS, Inc.",
+    "url": "https://cesium.com"
+  },
+  "keywords": [
+    "cesium",
+    "CesiumJS",
+    "webpack",
+    "example"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/CesiumGS/cesium-webpack-example.git"
+  },
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack --config webpack.config.js",
+    "start": "webpack serve --config webpack.config.js --open"
+  },
+  "devDependencies": {
+    "cesium": "^1.97",
+    "copy-webpack-plugin": "^9.0.1",
+    "css-loader": "^6.2.0",
+    "html-webpack-plugin": "^5.3.2",
+    "style-loader": "^3.2.1",
+    "url-loader": "^4.1.1",
+    "webpack": "^5.51.1",
+    "webpack-cli": "^4.9.1",
+    "webpack-dev-server": "^4.3.1"
+  },
+  "dependencies": {
+    "assert": "^2.0.0",
+    "browserify-zlib": "^0.2.0",
+    "buffer": "^6.0.3",
+    "compression": "^1.7.4",
+    "crypto-browserify": "^3.12.0",
+    "express": "^4.18.1",
+    "fs": "^0.0.1-security",
+    "https-browserify": "^1.0.0",
+    "stream-browserify": "^3.0.0",
+    "npm": "^8.19.2",
+    "path-browserify": "^1.0.1",
+    "request": "^2.88.2",
+    "stream-http": "^3.2.0",
+    "url": "^0.11.0",
+    "yargs": "^17.5.1",
+    "zip": "^1.2.0"
+  }
+}
