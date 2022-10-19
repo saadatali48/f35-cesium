@@ -32,6 +32,8 @@ import {
   Ellipsoid,
   Cesium3DTileset,
   ModelAnimationLoop,
+  HorizontalOrigin,
+  VerticalOrigin
 } from "cesium";
 import "cesium/Widgets/widgets.css";
 import "../src/css/main.css";
@@ -43,12 +45,12 @@ const viewer = new Viewer("cesiumContainer", {
   //   url:"http://localhost:8090/tiles/",
   // }),
   terrainProvider: createWorldTerrain(),
-  imageryProvider: new OpenStreetMapImageryProvider({
-    url: "https://a.tile.openstreetmap.org/",
-  }),
-  // imageryProvider: new ArcGisMapServerImageryProvider({
-  //   url : 'https://services.arcgisonline.com/arcgis/rest/services/Canvas/World_Light_Gray_Base/MapServer'
+  // imageryProvider: new OpenStreetMapImageryProvider({
+  //   url: "https://a.tile.openstreetmap.org/",
   // }),
+  imageryProvider: new ArcGisMapServerImageryProvider({
+    url : 'https://services.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer'
+  }),
   // imageryProvider: new MapboxStyleImageryProvider({
   //   styleId: 'streets-v11',
   //   accessToken: 'pk.eyJ1Ijoic2FhZGF0MjkzMCIsImEiOiJjam5hYWZ3eXY0YWp4M3BxdmtrZTc3aTIxIn0.zkUyZR1Gx8ZGIk-52rxawA',
@@ -74,7 +76,7 @@ const viewer = new Viewer("cesiumContainer", {
   // maximumRenderTimeChange: Infinity,
   // terrainShadows: ShadowMode.DISABLED,
 });
-// viewer.scene.globe.depthTestAgainstTerrain = true;
+viewer.scene.globe.depthTestAgainstTerrain = true;
 // viewer.scene.globe.enableLighting = true;
 // viewer.scene.postProcessStages.fxaa.enabled = true;
 document.getElementsByClassName("cesium-widget-credits")[0].style.display =
@@ -129,6 +131,11 @@ const planePrimitive = scene.primitives.add(
       fixedFrameTransform
     ),
     minimumPixelSize: 128,
+    eyeOffset: new Cartesian3(0.0, 0.0, 0.0), 
+    horizontalOrigin: HorizontalOrigin.CENTER, 
+    verticalOrigin: VerticalOrigin.BOTTOM, 
+    alignedAxis: Cartesian3.ZERO, 
+    scale:2.0
   })
 );
 
@@ -230,3 +237,27 @@ window.document.addEventListener("keydown", function (e) {
     default:
   }
 });
+
+
+const addBillboard = (name,url,lat,long,height,scale) => {
+  viewer.entities.add({
+    name:name,
+    position: Cartesian3.fromDegrees(long, lat,height),
+    billboard: {
+      image: url,
+      scale:scale,
+      eyeOffset: new Cartesian3(0.0, 0.0, 0.0), 
+      horizontalOrigin: HorizontalOrigin.CENTER, 
+      verticalOrigin: VerticalOrigin.BOTTOM, 
+      alignedAxis: Cartesian3.ZERO, 
+      heightReference:HeightReference.CLAMP_TO_GROUND
+    },
+    
+  });
+}
+addBillboard("Battalion","images/mil-symbols/bitallion.svg",34.787515, 72.362802,931,0.25);
+addBillboard("Company","iimages/mil-symbols/company.svg",34.786515, 72.362802,931,0.25);
+addBillboard("Patrolling","images/mil-symbols/patrolling.svg",34.787515, 72.363802,931,0.25);
+addBillboard("Line of Sight","images/mil-symbols/los.svg",34.784510, 72.386672,1374,0.25);
+addBillboard("Combat","images/mil-symbols/combat.svg",34.77726490988941, 72.37349608014416,1270,0.25);
+// addBillboard("images/brigade.svg",34.787515, 72.362802,931);
